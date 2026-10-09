@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAST National Poster Competition 2026 | UMS Rappang</title>
+<style>
+  :root {
+    --navy: #0a1f44;
+    --biru-tua: #0b3d91;
+    --biru: #1e5fc7;
+    --biru-muda: #eaf1ff;
+    --emas: #f0b93a;
+    --teks: #1c2b44;
+    --abu: #5b6b82;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: var(--teks);
+    background: #f4f7fd;
+    line-height: 1.6;
+  }
+  a { color: inherit; }
+
+  /* ===== NAVBAR ===== */
+  nav {
+    position: sticky; top: 0; z-index: 20;
+    background: var(--navy);
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px;
+    padding: 12px;
+  }
+  nav a {
+    color: #fff; text-decoration: none; font-size: 14px;
+    padding: 4px 8px; border-radius: 6px;
+  }
+  nav a:hover { background: var(--biru-tua); }
+
+  /* ===== HERO ===== */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--biru-tua) 60%, var(--biru) 100%);
+    color: #fff; text-align: center;
+    padding: 60px 20px 50px;
+    position: relative; overflow: hidden;
+  }
+  .hero::after {
+    content: ""; position: absolute; right: -80px; top: -80px;
+    width: 280px; height: 280px; border-radius: 50%;
+    border: 40px solid rgba(240,185,58,.18);
+  }
+  .hero .org { font-size: 13px; letter-spacing: 1px; text-transform: uppercase; opacity: .9; }
+  .hero .fak { font-size: 15px; font-weight: 700; margin-top: 4px; }
+  .hero h1 {
+    font-size: clamp(30px, 7vw, 56px);
+    font-weight: 900; line-height: 1.05; margin: 22px 0 8px;
+  }
+  .hero h1 .tahun { color: var(--emas); }
+  .hero .tema {
+    display: inline-block; margin: 14px auto 26px; max-width: 640px;
+    background: rgba(255,255,255,.12); border-radius: 999px;
+    padding: 12px 22px; font-style: italic; font-size: 15px;
+  }
+  .badge-free {
+    display: inline-block; background: var(--emas); color: var(--navy);
+    font-weight: 800; padding: 6px 16px; border-radius: 999px;
+    transform: rotate(-3deg); margin-bottom: 18px;
+  }
+
+  .countdown { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+  .countdown div {
+    background: rgba(255,255,255,.14); border-radius: 12px;
+    padding: 10px 14px; min-width: 72px;
+  }
+  .countdown span { display: block; font-size: 26px; font-weight: 800; }
+  .countdown small { font-size: 12px; opacity: .85; }
+
+  .btn {
+    display: inline-block; background: var(--emas); color: var(--navy);
+    padding: 12px 24px; border-radius: 8px; font-weight: 700;
+    text-decoration: none; border: none; cursor: pointer; font-size: 15px;
+  }
+  .btn:hover { filter: brightness(1.05); }
+
+  /* ===== SECTION ===== */
+  section { max-width: 1040px; margin: 0 auto; padding: 44px 20px; }
+  .judul-section {
+    color: var(--navy); font-size: 24px; font-weight: 800;
+    display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+  }
+  .judul-section::before {
+    content: ""; width: 6px; height: 28px; background: var(--emas); border-radius: 3px;
+  }
+
+  /* ===== KATEGORI ===== */
+  .kategori-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+  }
+  .kategori {
+    background: #fff; border-radius: 14px; padding: 16px 12px;
+    text-align: center; box-shadow: 0 2px 10px rgba(10,31,68,.08);
+    border-top: 4px solid var(--biru);
+  }
+  .kategori .no {
+    display: inline-block; background: var(--biru-tua); color: #fff;
+    width: 26px; height: 26px; border-radius: 50%;
+    font-size: 13px; font-weight: 700; line-height: 26px; margin-bottom: 8px;
+  }
+  .kategori .nama { font-weight: 700; color: var(--navy); font-size: 14px; }
+
+  /* ===== INFO 3 KOLOM ===== */
+  .info-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  .panel {
+    background: #fff; border-radius: 14px; padding: 22px;
+    box-shadow: 0 2px 10px rgba(10,31,68,.08);
+  }
+  .panel h3 {
+    background: var(--navy); color: #fff; font-size: 15px;
+    padding: 10px 14px; border-radius: 8px; margin-bottom: 14px;
+  }
+  .timeline-item { display: flex; gap: 12px; margin-bottom: 14px; }
+  .timeline-item .dot {
+    width: 12px; height: 12px; border-radius: 50%; margin-top: 6px; flex-shrink: 0;
+    background: var(--biru);
+  }
+  .timeline-item:nth-child(2) .dot { background: var(--emas); }
+  .timeline-item:nth-child(3) .dot { background: #2aa198; }
+  .timeline-item:nth-child(4) .dot { background: #7d5fd9; }
+  .timeline-item:nth-child(5) .dot { background: #d9534f; }
+  .timeline-item .tgl { font-weight: 700; color: var(--biru-tua); font-size: 14px; }
+  .timeline-item .ket { font-size: 14px; color: var(--abu); }
+
+  .list-check { list-style: none; }
+  .list-check li {
+    position: relative; padding-left: 26px; margin-bottom: 10px;
+    font-size: 14px; color: var(--teks);
+  }
+  .list-check li::before {
+    content: "✓"; position: absolute; left: 0; top: 0;
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--biru-tua); color: #fff; font-size: 11px;
+    text-align: center; line-height: 18px;
+  }
+
+  .narahubung {
+    background: linear-gradient(135deg, var(--navy), var(--biru-tua));
+    color: #fff; border-radius: 14px; padding: 22px;
+  }
+  .narahubung h3 { color: var(--emas); font-size: 15px; margin-bottom: 12px; }
+  .narahubung .orang { margin-bottom: 12px; font-size: 14px; }
+  .narahubung .orang strong { display: block; font-size: 15px; }
+  .wa {
+    display: inline-block; margin-top: 4px; background: #25d366; color: #fff;
+    text-decoration: none; padding: 6px 12px; border-radius: 8px;
+    font-size: 13px; font-weight: 600;
+  }
+
+  /* ===== FORM ===== */
+  form {
+    background: #fff; padding: 24px; border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(10,31,68,.08);
+  }
+  label {
+    display: block; font-weight: 600; font-size: 14px;
+    margin: 14px 0 6px; color: var(--biru-tua);
+  }
+  label span { color: #d33; }
+  input, select {
+    width: 100%; padding: 11px 12px; border: 1px solid #c5d5ee;
+    border-radius: 8px; font-size: 15px; font-family: inherit; background: #fff;
+  }
+  input:focus, select:focus {
+    outline: none; border-color: var(--biru);
+    box-shadow: 0 0 0 3px rgba(30,95,199,.15);
+  }
+  .hint { font-size: 12px; color: var(--abu); margin-top: 4px; }
+  .submit {
+    width: 100%; margin-top: 22px; background: var(--biru-tua); color: #fff;
+    padding: 14px; font-size: 16px; font-weight: 700;
+    border: none; border-radius: 8px; cursor: pointer;
+  }
+  .submit:hover { background: var(--navy); }
+  .submit:disabled { opacity: .6; cursor: not-allowed; }
+
+  footer {
+    background: var(--navy); color: #cfd9ec; text-align: center;
+    font-size: 13px; padding: 26px 20px;
+  }
+
+  /* ===== POP-UP ===== */
+  .modal {
+    display: none; position: fixed; inset: 0; background: rgba(10,31,68,.6);
+    align-items: center; justify-content: center; padding: 20px; z-index: 50;
+  }
+  .modal.show { display: flex; }
+  .modal-box {
+    background: #fff; border-radius: 14px; padding: 28px;
+    max-width: 360px; text-align: center;
+  }
+  .modal-box h3 { color: var(--navy); margin-bottom: 8px; }
+  .modal-box p { color: var(--abu); font-size: 15px; margin-bottom: 18px; }
+  .modal-box button {
+    background: var(--biru-tua); color: #fff; border: none;
+    padding: 10px 22px; border-radius: 8px; cursor: pointer; font-size: 15px;
+  }
+
+  /* ===== RESPONSIF ===== */
+  @media (min-width: 768px) {
+    .hero { padding: 80px 20px 70px; }
+    .kategori-grid { grid-template-columns: repeat(5, 1fr); }
+    .info-grid { grid-template-columns: repeat(3, 1fr); }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 18px; }
+    .form-grid .full { grid-column: 1 / -1; }
+    form { padding: 32px; }
+  }
+  @media (max-width: 600px) {
+    nav { padding: 10px 8px; }
+    nav a { font-size: 13px; padding: 4px 6px; }
+    .hero { padding: 40px 16px 36px; }
+    .hero .org { font-size: 11px; }
+    .countdown { gap: 6px; }
+    .countdown div { min-width: 60px; padding: 8px 10px; }
+    .countdown span { font-size: 20px; }
+    section { padding: 30px 16px; }
+    .judul-section { font-size: 20px; }
+    .kategori { padding: 12px 8px; }
+    .kategori .nama { font-size: 13px; }
+    form { padding: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#timeline">Timeline</a>
+  <a href="#kategori">Kategori</a>
+  <a href="#ketentuan">Ketentuan</a>
+  <a href="#daftar">Daftar</a>
+  <a href="#kontak">Kontak</a>
+</nav>
+
+<header class="hero">
+  <div class="org">Universitas Muhammadiyah Sidenreng Rappang</div>
+  <div class="fak">Fakultas Sains dan Teknologi</div>
+
+  <h1>FAST NATIONAL<br>POSTER COMPETITION<br><span class="tahun">2026</span></h1>
+
+  <div class="tema">"Inovasi Sains dan Teknologi untuk Kehidupan yang Lebih Berkelanjutan"</div>
+  <br>
+  <div class="badge-free">FREE</div>
+
+  <div class="countdown">
+    <div><span id="hari">00</span><small>Hari</small></div>
+    <div><span id="jam">00</span><small>Jam</small></div>
+    <div><span id="menit">00</span><small>Menit</small></div>
+    <div><span id="detik">00</span><small>Detik</small></div>
+  </div>
+
+  <a class="btn" href="#daftar">Daftar Sekarang</a>
+</header>
+
+<section id="kategori">
+  <h2 class="judul-section">10 Kategori Lomba Poster</h2>
+  <div class="kategori-grid">
+    <div class="kategori"><span class="no">1</span><div class="nama">Pangan</div></div>
+    <div class="kategori"><span class="no">2</span><div class="nama">Lingkungan</div></div>
+    <div class="kategori"><span class="no">3</span><div class="nama">Teknologi</div></div>
+    <div class="kategori"><span class="no">4</span><div class="nama">Pertanian</div></div>
+    <div class="kategori"><span class="no">5</span><div class="nama">Kesehatan</div></div>
+    <div class="kategori"><span class="no">6</span><div class="nama">Perikanan dan Kelautan</div></div>
+    <div class="kategori"><span class="no">7</span><div class="nama">Peternakan</div></div>
+    <div class="kategori"><span class="no">8</span><div class="nama">Ekonomi dan Kewirausahaan</div></div>
+    <div class="kategori"><span class="no">9</span><div class="nama">Digitalisasi dan Teknologi Terapan</div></div>
+    <div class="kategori"><span class="no">10</span><div class="nama">Inovasi untuk Masyarakat dan Keberlanjutan</div></div>
+  </div>
+</section>
+
+<section id="timeline" style="padding-top:0">
+  <div class="info-grid">
+    <div class="panel">
+      <h3>TIMELINE KEGIATAN</h3>
+      <div class="timeline-item"><div class="dot"></div><div><div class="tgl">10 – 25 Oktober 2026</div><div class="ket">Pendaftaran dan pengiriman karya</div></div></div>
+      <div class="timeline-item"><div class="dot"></div><div><div class="tgl">26 – 28 Oktober 2026</div><div class="ket">Seleksi administrasi</div></div></div>
+      <div class="timeline-item"><div class="dot"></div><div><div class="tgl">29 Okt – 5 Nov 2026</div><div class="ket">Penilaian poster</div></div></div>
+      <div class="timeline-item"><div class="dot"></div><div><div class="tgl">6 November 2026</div><div class="ket">Pengumuman finalis</div></div></div>
+      <div class="timeline-item"><div class="dot"></div><div><div class="tgl">10 November 2026</div><div class="ket">Presentasi final (online)</div></div></div>
+    </div>
+
+    <div class="panel" id="ketentuan">
+      <h3>KETENTUAN UMUM</h3>
+      <ul class="list-check">
+        <li>Peserta adalah mahasiswa aktif D3/D4/S1 seluruh perguruan tinggi di Indonesia.</li>
+        <li>Poster merupakan karya orisinal dan belum pernah dipublikasikan dalam lomba lain.</li>
+        <li>Ukuran poster A3 (potrait), format PDF, resolusi minimal 300 dpi.</li>
+        <li>Isi poster memuat latar belakang, tujuan, inovasi, metode/data, hasil/solusi, dampak, dan referensi.</li>
+        <li>Setiap peserta hanya boleh mengirimkan satu poster di salah satu kategori.</li>
+        <li>Bahasa yang digunakan: Bahasa Indonesia atau Bahasa Inggris.</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h3>KRITERIA PENILAIAN</h3>
+      <ul class="list-check">
+        <li>Kesesuaian dengan tema</li>
+        <li>Kualitas gagasan/inovasi</li>
+        <li>Dasar ilmiah dan ketepatan data</li>
+        <li>Solusi dan dampak</li>
+        <li>Kreativitas visual</li>
+        <li>Sistematika poster</li>
+        <li>Relevansi dan implementasi</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="daftar" style="padding-top:0">
+  <h2 class="judul-section">Formulir Pendaftaran</h2>
+  <form id="formDaftar">
+    <div class="form-grid">
+      <div class="full">
+        <label>Kategori Lomba <span>*</span></label>
+        <select name="kategori" required>
+          <option value="">-- Pilih Kategori --</option>
+          <option>1. Pangan</option>
+          <option>2. Lingkungan</option>
+          <option>3. Teknologi</option>
+          <option>4. Pertanian</option>
+          <option>5. Kesehatan</option>
+          <option>6. Perikanan dan Kelautan</option>
+          <option>7. Peternakan</option>
+          <option>8. Ekonomi dan Kewirausahaan</option>
+          <option>9. Digitalisasi dan Teknologi Terapan</option>
+          <option>10. Inovasi untuk Masyarakat dan Keberlanjutan</option>
+        </select>
+      </div>
+
+      <div class="full">
+        <label>Judul Poster <span>*</span></label>
+        <input name="judul" required>
+      </div>
+
+      <div>
+        <label>Asal Perguruan Tinggi <span>*</span></label>
+        <input name="kampus" required>
+      </div>
+
+      <div>
+        <label>Nama Lengkap Ketua <span>*</span></label>
+        <input name="ketua" required>
+      </div>
+
+      <div>
+        <label>NIM Ketua <span>*</span></label>
+        <input name="nim" required>
+      </div>
+
+      <div>
+        <label>Email Aktif Ketua <span>*</span></label>
+        <input name="email" type="email" required>
+      </div>
+
+      <div>
+        <label>No. WhatsApp Ketua <span>*</span></label>
+        <input name="wa" type="tel" required>
+      </div>
+
+      <div>
+        <label>Nama Anggota 1 (opsional)</label>
+        <input name="anggota1">
+      </div>
+
+      <div class="full">
+        <label>Nama Anggota 2 (opsional)</label>
+        <input name="anggota2">
+      </div>
+
+      <div class="full">
+        <label>Link Berkas Poster (Google Drive, PDF) <span>*</span></label>
+        <input name="linkBerkas" type="url" required>
+        <div class="hint">Pastikan izin link Drive disetel ke "Siapa saja yang memiliki tautan dapat melihat".</div>
+      </div>
+    </div>
+
+    <button class="submit" type="submit" id="tombolKirim">Kirim Pendaftaran</button>
+  </form>
+</section>
+
+<section id="kontak" style="padding-top:0">
+  <div class="narahubung">
+    <h3>NARAHUBUNG</h3>
+    <div class="orang">
+      <strong>Rukmelia</strong>
+      (085253824822)
+      <br><a class="wa" href="https://wa.me/6285253824822" target="_blank">Chat WhatsApp</a>
+    </div>
+    <div class="orang">
+      <strong>Fitriani</strong>
+      (087810270070)
+      <br><a class="wa" href="https://wa.me/6287810270070" target="_blank">Chat WhatsApp</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Fakultas Sains dan Teknologi, Universitas Muhammadiyah Sidenreng Rappang
+</footer>
+
+<div class="modal" id="modalSukses">
+  <div class="modal-box">
+    <h3>Pendaftaran Berhasil Dikirim!</h3>
+    <p>Data dan poster kamu sudah tersimpan. Panitia akan memproses pendaftaranmu.</p>
+    <button onclick="document.getElementById('modalSukses').classList.remove('show')">Tutup</button>
+  </div>
+</div>
+
+<script>
+  // ===== GANTI DENGAN URL APPS SCRIPT KAMU =====
+  const APPS_SCRIPT_URL = "GANTI_URL_APPS_SCRIPT";
+
+  // ===== TARGET COUNTDOWN: batas akhir pendaftaran 25 Oktober 2026 pukul 23:59 =====
+  const TARGET = new Date(2026, 9, 25, 23, 59, 0);
+
+  function updateCountdown() {
+    const selisih = TARGET - new Date();
+    if (selisih <= 0) {
+      ["hari","jam","menit","detik"].forEach(id => document.getElementById(id).textContent = "00");
+      return;
+    }
+    const hari = Math.floor(selisih / (1000*60*60*24));
+    const jam = Math.floor((selisih / (1000*60*60)) % 24);
+    const menit = Math.floor((selisih / (1000*60)) % 60);
+    const detik = Math.floor((selisih / 1000) % 60);
+    document.getElementById("hari").textContent = String(hari).padStart(2, "0");
+    document.getElementById("jam").textContent = String(jam).padStart(2, "0");
+    document.getElementById("menit").textContent = String(menit).padStart(2, "0");
+    document.getElementById("detik").textContent = String(detik).padStart(2, "0");
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  document.getElementById("formDaftar").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const tombol = document.getElementById("tombolKirim");
+    tombol.disabled = true;
+    tombol.textContent = "Mengirim...";
+
+    const data = Object.fromEntries(new FormData(e.target).entries());
+
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        body: JSON.stringify(data)
+      });
+      document.getElementById("modalSukses").classList.add("show");
+      e.target.reset();
+    } catch (err) {
+      alert("Gagal mengirim. Periksa koneksi internet kamu lalu coba lagi.");
+    } finally {
+      tombol.disabled = false;
+      tombol.textContent = "Kirim Pendaftaran";
+    }
+  });
+</script>
+</body>
+</html>
