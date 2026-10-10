@@ -9,222 +9,301 @@
     --navy: #0a1f44;
     --biru-tua: #0b3d91;
     --biru: #1e5fc7;
-    --biru-muda: #eaf1ff;
+    --biru-terang: #4d8ef0;
     --emas: #f0b93a;
+    --bg: #f3f7fd;
     --teks: #1c2b44;
     --abu: #5b6b82;
+    --shadow: 0 6px 24px rgba(10,31,68,.08);
+    --shadow-hover: 0 14px 34px rgba(10,31,68,.18);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 70px; }
   body {
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    color: var(--teks);
-    background: #f4f7fd;
-    line-height: 1.6;
+    color: var(--teks); background: var(--bg); line-height: 1.6; overflow-x: hidden;
   }
   a { color: inherit; }
+  button { font-family: inherit; }
+
+  /* ===== ANIMASI MUNCUL SAAT SCROLL ===== */
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; transition-delay: var(--d, 0s); }
+  .reveal.in { opacity: 1; transform: none; }
 
   /* ===== NAVBAR ===== */
   nav {
     position: sticky; top: 0; z-index: 20;
-    background: var(--navy);
-    display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 14px;
-    padding: 12px;
+    background: rgba(10,31,68,.96); backdrop-filter: blur(8px);
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 6px;
+    padding: 10px 12px; box-shadow: 0 2px 12px rgba(0,0,0,.15);
   }
   nav a {
-    color: #fff; text-decoration: none; font-size: 14px;
-    padding: 4px 8px; border-radius: 6px;
+    color: #dbe6ff; text-decoration: none; font-size: 14px;
+    padding: 6px 12px; border-radius: 999px; transition: background .25s, color .25s;
   }
-  nav a:hover { background: var(--biru-tua); }
+  nav a:hover { background: rgba(255,255,255,.1); color: #fff; }
+  nav a.active { background: var(--biru); color: #fff; }
 
   /* ===== HERO ===== */
   .hero {
-    background: linear-gradient(135deg, var(--navy) 0%, var(--biru-tua) 60%, var(--biru) 100%);
-    color: #fff; text-align: center;
-    padding: 60px 20px 50px;
-    position: relative; overflow: hidden;
+    position: relative; overflow: hidden; text-align: center; color: #fff;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--biru-tua) 55%, var(--biru) 100%);
+    padding: 64px 20px 56px;
   }
-  .hero::after {
-    content: ""; position: absolute; right: -80px; top: -80px;
-    width: 280px; height: 280px; border-radius: 50%;
-    border: 40px solid rgba(240,185,58,.18);
+  .blob {
+    position: absolute; border-radius: 50%; filter: blur(2px);
+    background: rgba(255,255,255,.08); animation: float 9s ease-in-out infinite;
+    pointer-events: none;
   }
-  .hero .org { font-size: 13px; letter-spacing: 1px; text-transform: uppercase; opacity: .9; }
-  .hero .fak { font-size: 15px; font-weight: 700; margin-top: 4px; }
+  .blob.b1 { width: 260px; height: 260px; right: -70px; top: -60px; }
+  .blob.b2 { width: 180px; height: 180px; left: -50px; bottom: -40px; animation-delay: -4s; background: rgba(240,185,58,.12); }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
+
+  .hero > * { position: relative; }
+  .org { font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; opacity: .9; }
+  .fak { font-size: 15px; font-weight: 700; margin-top: 4px; }
   .hero h1 {
-    font-size: clamp(30px, 7vw, 56px);
-    font-weight: 900; line-height: 1.05; margin: 22px 0 8px;
+    font-size: clamp(30px, 7vw, 58px); font-weight: 900; line-height: 1.05; margin: 20px 0 8px;
+    animation: rise .9s ease both;
   }
   .hero h1 .tahun { color: var(--emas); }
-  .hero .tema {
-    display: inline-block; margin: 14px auto 26px; max-width: 640px;
+  @keyframes rise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+
+  .tema {
+    display: inline-block; max-width: 640px; margin: 14px auto 22px;
     background: rgba(255,255,255,.12); border-radius: 999px;
     padding: 12px 22px; font-style: italic; font-size: 15px;
   }
   .badge-free {
     display: inline-block; background: var(--emas); color: var(--navy);
-    font-weight: 800; padding: 6px 16px; border-radius: 999px;
-    transform: rotate(-3deg); margin-bottom: 18px;
+    font-weight: 800; padding: 6px 18px; border-radius: 999px;
+    transform: rotate(-3deg); margin-bottom: 22px; box-shadow: 0 6px 16px rgba(240,185,58,.35);
   }
 
-  .countdown { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
+  .countdown { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 26px; }
   .countdown div {
-    background: rgba(255,255,255,.14); border-radius: 12px;
-    padding: 10px 14px; min-width: 72px;
+    background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.18);
+    border-radius: 14px; padding: 10px 14px; min-width: 74px; backdrop-filter: blur(4px);
   }
-  .countdown span { display: block; font-size: 26px; font-weight: 800; }
+  .countdown span { display: block; font-size: 26px; font-weight: 800; font-variant-numeric: tabular-nums; }
   .countdown small { font-size: 12px; opacity: .85; }
 
   .btn {
     display: inline-block; background: var(--emas); color: var(--navy);
-    padding: 12px 24px; border-radius: 8px; font-weight: 700;
-    text-decoration: none; border: none; cursor: pointer; font-size: 15px;
+    padding: 13px 26px; border-radius: 10px; font-weight: 700; font-size: 15px;
+    text-decoration: none; border: none; cursor: pointer;
+    box-shadow: 0 8px 20px rgba(240,185,58,.35); transition: transform .2s, box-shadow .2s;
   }
-  .btn:hover { filter: brightness(1.05); }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(240,185,58,.45); }
 
   /* ===== SECTION ===== */
-  section { max-width: 1040px; margin: 0 auto; padding: 44px 20px; }
-  .judul-section {
+  section { max-width: 1040px; margin: 0 auto; padding: 50px 20px; }
+  .judul {
     color: var(--navy); font-size: 24px; font-weight: 800;
-    display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px; margin-bottom: 22px;
   }
-  .judul-section::before {
-    content: ""; width: 6px; height: 28px; background: var(--emas); border-radius: 3px;
-  }
+  .judul::before { content: ""; width: 6px; height: 28px; background: var(--emas); border-radius: 3px; }
 
   /* ===== KATEGORI ===== */
-  .kategori-grid {
-    display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
-  }
+  .kategori-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .kategori {
-    background: #fff; border-radius: 14px; padding: 16px 12px;
-    text-align: center; box-shadow: 0 2px 10px rgba(10,31,68,.08);
-    border-top: 4px solid var(--biru);
+    background: #fff; border: none; border-top: 4px solid var(--biru); border-radius: 14px;
+    padding: 18px 12px; text-align: center; cursor: pointer; box-shadow: var(--shadow);
+    transition: transform .25s ease, box-shadow .25s ease;
   }
+  .kategori:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+  .kategori:focus-visible { outline: 3px solid var(--emas); outline-offset: 2px; }
   .kategori .no {
-    display: inline-block; background: var(--biru-tua); color: #fff;
-    width: 26px; height: 26px; border-radius: 50%;
-    font-size: 13px; font-weight: 700; line-height: 26px; margin-bottom: 8px;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--biru-tua); color: #fff; width: 28px; height: 28px; border-radius: 50%;
+    font-size: 13px; font-weight: 700; margin-bottom: 10px;
   }
   .kategori .nama { font-weight: 700; color: var(--navy); font-size: 14px; }
+  .kategori .hint-klik { display: block; margin-top: 6px; font-size: 11px; color: var(--biru-terang); }
 
-  /* ===== INFO 3 KOLOM ===== */
-  .info-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  /* ===== TIMELINE ===== */
   .panel {
-    background: #fff; border-radius: 14px; padding: 22px;
-    box-shadow: 0 2px 10px rgba(10,31,68,.08);
+    background: #fff; border-radius: 16px; padding: 24px; box-shadow: var(--shadow);
+    transition: transform .3s ease, box-shadow .3s ease;
   }
+  .panel:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
   .panel h3 {
-    background: var(--navy); color: #fff; font-size: 15px;
-    padding: 10px 14px; border-radius: 8px; margin-bottom: 14px;
+    background: linear-gradient(90deg, var(--navy), var(--biru-tua)); color: #fff;
+    font-size: 14px; letter-spacing: .5px; padding: 11px 16px; border-radius: 10px; margin-bottom: 18px;
   }
-  .timeline-item { display: flex; gap: 12px; margin-bottom: 14px; }
-  .timeline-item .dot {
-    width: 12px; height: 12px; border-radius: 50%; margin-top: 6px; flex-shrink: 0;
-    background: var(--biru);
+  .timeline { position: relative; padding-left: 4px; }
+  .timeline::before {
+    content: ""; position: absolute; left: 9px; top: 6px; bottom: 6px; width: 2px;
+    background: linear-gradient(var(--biru), var(--emas), #d9534f);
+    transform-origin: top; transform: scaleY(0); transition: transform 1.2s ease .2s;
   }
-  .timeline-item:nth-child(2) .dot { background: var(--emas); }
-  .timeline-item:nth-child(3) .dot { background: #2aa198; }
-  .timeline-item:nth-child(4) .dot { background: #7d5fd9; }
-  .timeline-item:nth-child(5) .dot { background: #d9534f; }
-  .timeline-item .tgl { font-weight: 700; color: var(--biru-tua); font-size: 14px; }
-  .timeline-item .ket { font-size: 14px; color: var(--abu); }
+  .timeline.in::before { transform: scaleY(1); }
+  .t-item { position: relative; padding: 0 0 22px 34px; opacity: 0; transform: translateX(-12px); transition: opacity .6s ease, transform .6s ease; }
+  .t-item:last-child { padding-bottom: 0; }
+  .timeline.in .t-item { opacity: 1; transform: none; }
+  .timeline.in .t-item:nth-child(1) { transition-delay: .3s; }
+  .timeline.in .t-item:nth-child(2) { transition-delay: .45s; }
+  .timeline.in .t-item:nth-child(3) { transition-delay: .6s; }
+  .timeline.in .t-item:nth-child(4) { transition-delay: .75s; }
+  .timeline.in .t-item:nth-child(5) { transition-delay: .9s; }
+  .t-item .dot {
+    position: absolute; left: 0; top: 4px; width: 20px; height: 20px; border-radius: 50%;
+    background: #fff; border: 4px solid var(--biru); transition: transform .3s;
+  }
+  .t-item:hover .dot { transform: scale(1.25); }
+  .t-item:nth-child(2) .dot { border-color: var(--emas); }
+  .t-item:nth-child(3) .dot { border-color: #2aa198; }
+  .t-item:nth-child(4) .dot { border-color: #7d5fd9; }
+  .t-item:nth-child(5) .dot { border-color: #d9534f; }
+  .t-item .tgl { font-weight: 700; color: var(--biru-tua); font-size: 14px; }
+  .t-item .ket { font-size: 14px; color: var(--abu); }
 
+  /* ===== KETENTUAN & KRITERIA ===== */
+  .grid-2 { display: grid; grid-template-columns: 1fr; gap: 18px; }
   .list-check { list-style: none; }
   .list-check li {
-    position: relative; padding-left: 26px; margin-bottom: 10px;
-    font-size: 14px; color: var(--teks);
+    position: relative; padding: 9px 0 9px 32px; font-size: 14.5px;
+    border-bottom: 1px dashed #dbe4f3;
   }
+  .list-check li:last-child { border-bottom: none; }
   .list-check li::before {
-    content: "✓"; position: absolute; left: 0; top: 0;
-    width: 18px; height: 18px; border-radius: 50%;
-    background: var(--biru-tua); color: #fff; font-size: 11px;
-    text-align: center; line-height: 18px;
-  }
-
-  .narahubung {
-    background: linear-gradient(135deg, var(--navy), var(--biru-tua));
-    color: #fff; border-radius: 14px; padding: 22px;
-  }
-  .narahubung h3 { color: var(--emas); font-size: 15px; margin-bottom: 12px; }
-  .narahubung .orang { margin-bottom: 12px; font-size: 14px; }
-  .narahubung .orang strong { display: block; font-size: 15px; }
-  .wa {
-    display: inline-block; margin-top: 4px; background: #25d366; color: #fff;
-    text-decoration: none; padding: 6px 12px; border-radius: 8px;
-    font-size: 13px; font-weight: 600;
+    content: "✓"; position: absolute; left: 0; top: 9px; width: 22px; height: 22px;
+    border-radius: 50%; background: var(--biru-tua); color: #fff; font-size: 12px;
+    display: flex; align-items: center; justify-content: center;
   }
 
   /* ===== FORM ===== */
-  form {
-    background: #fff; padding: 24px; border-radius: 14px;
-    box-shadow: 0 2px 10px rgba(10,31,68,.08);
-  }
-  label {
-    display: block; font-weight: 600; font-size: 14px;
-    margin: 14px 0 6px; color: var(--biru-tua);
-  }
-  label span { color: #d33; }
+  .form-card { background: #fff; border-radius: 16px; padding: 26px; box-shadow: var(--shadow); }
+  .form-grid { display: grid; grid-template-columns: 1fr; gap: 0 18px; }
+  .full { grid-column: 1 / -1; }
+  label { display: block; font-weight: 600; font-size: 14px; margin: 14px 0 6px; color: var(--biru-tua); }
+  label .wajib { color: #d33; }
   input, select {
-    width: 100%; padding: 11px 12px; border: 1px solid #c5d5ee;
-    border-radius: 8px; font-size: 15px; font-family: inherit; background: #fff;
+    width: 100%; padding: 12px 13px; border: 1px solid #c5d5ee; border-radius: 10px;
+    font-size: 15px; font-family: inherit; background: #fff; color: var(--teks);
+    transition: border-color .2s, box-shadow .2s;
   }
-  input:focus, select:focus {
-    outline: none; border-color: var(--biru);
-    box-shadow: 0 0 0 3px rgba(30,95,199,.15);
+  input:focus, select:focus { outline: none; border-color: var(--biru); box-shadow: 0 0 0 4px rgba(30,95,199,.14); }
+  .hint { font-size: 12px; color: var(--abu); margin-top: 6px; }
+
+  .file-box {
+    border: 2px dashed #b9cdef; border-radius: 12px; padding: 18px; text-align: center;
+    background: #f8fbff; transition: border-color .2s, background .2s; cursor: pointer; position: relative;
   }
-  .hint { font-size: 12px; color: var(--abu); margin-top: 4px; }
+  .file-box:hover { border-color: var(--biru); background: #eef5ff; }
+  .file-box input[type="file"] {
+    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; padding: 0;
+  }
+  .file-box .ikon { font-size: 26px; }
+  .file-box .teks { font-weight: 600; color: var(--biru-tua); font-size: 14px; margin-top: 4px; }
+  .file-box .nama-file { font-size: 12px; color: var(--abu); margin-top: 4px; word-break: break-all; }
+
   .submit {
-    width: 100%; margin-top: 22px; background: var(--biru-tua); color: #fff;
-    padding: 14px; font-size: 16px; font-weight: 700;
-    border: none; border-radius: 8px; cursor: pointer;
+    width: 100%; margin-top: 24px; background: linear-gradient(90deg, var(--biru-tua), var(--biru));
+    color: #fff; padding: 15px; font-size: 16px; font-weight: 700;
+    border: none; border-radius: 10px; cursor: pointer; transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 8px 20px rgba(11,61,145,.25); display: flex; align-items: center; justify-content: center; gap: 10px;
   }
-  .submit:hover { background: var(--navy); }
-  .submit:disabled { opacity: .6; cursor: not-allowed; }
-
-  footer {
-    background: var(--navy); color: #cfd9ec; text-align: center;
-    font-size: 13px; padding: 26px 20px;
+  .submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(11,61,145,.35); }
+  .submit:disabled { opacity: .75; cursor: not-allowed; }
+  .spinner {
+    width: 18px; height: 18px; border: 3px solid rgba(255,255,255,.4); border-top-color: #fff;
+    border-radius: 50%; display: none; animation: putar .8s linear infinite;
   }
+  .submit.loading .spinner { display: inline-block; }
+  @keyframes putar { to { transform: rotate(360deg); } }
 
-  /* ===== POP-UP ===== */
+  /* ===== NARAHUBUNG ===== */
+  .narahubung {
+    background: linear-gradient(135deg, var(--navy), var(--biru-tua)); color: #fff;
+    border-radius: 16px; padding: 26px; box-shadow: var(--shadow-hover);
+  }
+  .narahubung h3 { color: var(--emas); font-size: 15px; letter-spacing: .5px; margin-bottom: 14px; }
+  .kontak-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  .orang {
+    background: rgba(255,255,255,.08); border-radius: 12px; padding: 14px 16px;
+    display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap;
+    transition: background .25s;
+  }
+  .orang:hover { background: rgba(255,255,255,.14); }
+  .orang strong { display: block; font-size: 15px; }
+  .orang small { opacity: .85; font-size: 13px; }
+  .wa {
+    background: #25d366; color: #fff; text-decoration: none; padding: 8px 14px;
+    border-radius: 8px; font-size: 13px; font-weight: 600; transition: transform .2s;
+  }
+  .wa:hover { transform: scale(1.05); }
+
+  footer { background: var(--navy); color: #cfd9ec; text-align: center; font-size: 13px; padding: 26px 20px; }
+
+  /* ===== MODAL ===== */
   .modal {
-    display: none; position: fixed; inset: 0; background: rgba(10,31,68,.6);
-    align-items: center; justify-content: center; padding: 20px; z-index: 50;
+    position: fixed; inset: 0; background: rgba(10,31,68,.6); backdrop-filter: blur(3px);
+    display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 50;
+    opacity: 0; visibility: hidden; transition: opacity .3s ease, visibility .3s;
   }
-  .modal.show { display: flex; }
+  .modal.show { opacity: 1; visibility: visible; }
   .modal-box {
-    background: #fff; border-radius: 14px; padding: 28px;
-    max-width: 360px; text-align: center;
+    background: #fff; border-radius: 18px; padding: 28px; max-width: 380px; width: 100%;
+    text-align: center; transform: translateY(20px) scale(.94); transition: transform .35s ease;
+    box-shadow: 0 20px 50px rgba(0,0,0,.25);
   }
-  .modal-box h3 { color: var(--navy); margin-bottom: 8px; }
-  .modal-box p { color: var(--abu); font-size: 15px; margin-bottom: 18px; }
-  .modal-box button {
-    background: var(--biru-tua); color: #fff; border: none;
-    padding: 10px 22px; border-radius: 8px; cursor: pointer; font-size: 15px;
+  .modal.show .modal-box { transform: none; }
+  .modal-box .ikon-besar {
+    width: 56px; height: 56px; margin: 0 auto 12px; border-radius: 50%;
+    background: var(--biru-tua); color: #fff; font-size: 24px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
   }
+  .modal-box h3 { color: var(--navy); font-size: 19px; margin-bottom: 8px; }
+  .modal-box p { color: var(--abu); font-size: 15px; margin-bottom: 20px; }
+  .modal-box .aksi { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .btn-biru {
+    background: var(--biru-tua); color: #fff; border: none; padding: 11px 22px;
+    border-radius: 10px; cursor: pointer; font-size: 15px; font-weight: 600;
+  }
+  .btn-biru:hover { background: var(--navy); }
+  .btn-abu {
+    background: #eef3fb; color: var(--biru-tua); border: none; padding: 11px 22px;
+    border-radius: 10px; cursor: pointer; font-size: 15px; font-weight: 600;
+  }
+
+  /* ===== TOAST ===== */
+  .toast {
+    position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 120px);
+    background: var(--navy); color: #fff; padding: 12px 20px; border-radius: 12px;
+    font-size: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.25); z-index: 60;
+    transition: transform .4s ease; max-width: calc(100% - 32px); text-align: center;
+  }
+  .toast.show { transform: translate(-50%, 0); }
 
   /* ===== RESPONSIF ===== */
+  @media (min-width: 640px) {
+    .kategori-grid { grid-template-columns: repeat(3, 1fr); }
+    .form-grid { grid-template-columns: 1fr 1fr; }
+  }
   @media (min-width: 768px) {
-    .hero { padding: 80px 20px 70px; }
+    .hero { padding: 90px 20px 80px; }
     .kategori-grid { grid-template-columns: repeat(5, 1fr); }
-    .info-grid { grid-template-columns: repeat(3, 1fr); }
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 18px; }
-    .form-grid .full { grid-column: 1 / -1; }
-    form { padding: 32px; }
+    .grid-2 { grid-template-columns: 1fr 1fr; }
+    .kontak-grid { grid-template-columns: 1fr 1fr; }
+    .form-card { padding: 34px; }
+    section { padding: 60px 20px; }
   }
   @media (max-width: 600px) {
-    nav { padding: 10px 8px; }
-    nav a { font-size: 13px; padding: 4px 6px; }
-    .hero { padding: 40px 16px 36px; }
-    .hero .org { font-size: 11px; }
-    .countdown { gap: 6px; }
-    .countdown div { min-width: 60px; padding: 8px 10px; }
+    nav { padding: 8px; }
+    nav a { font-size: 13px; padding: 5px 9px; }
+    .countdown div { min-width: 62px; padding: 8px 10px; }
     .countdown span { font-size: 20px; }
-    section { padding: 30px 16px; }
-    .judul-section { font-size: 20px; }
-    .kategori { padding: 12px 8px; }
-    .kategori .nama { font-size: 13px; }
-    form { padding: 18px; }
+    section { padding: 36px 16px; }
+    .judul { font-size: 20px; }
+    .panel, .form-card { padding: 18px; }
+  }
+
+  /* ===== GERAK BERKURANG ===== */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal, .t-item { opacity: 1; transform: none; }
+    .timeline::before { transform: none; }
   }
 </style>
 </head>
@@ -239,6 +318,9 @@
 </nav>
 
 <header class="hero">
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+
   <div class="org">Universitas Muhammadiyah Sidenreng Rappang</div>
   <div class="fak">Fakultas Sains dan Teknologi</div>
 
@@ -258,34 +340,38 @@
   <a class="btn" href="#daftar">Daftar Sekarang</a>
 </header>
 
-<section id="kategori">
-  <h2 class="judul-section">10 Kategori Lomba Poster</h2>
-  <div class="kategori-grid">
-    <div class="kategori"><span class="no">1</span><div class="nama">Pangan</div></div>
-    <div class="kategori"><span class="no">2</span><div class="nama">Lingkungan</div></div>
-    <div class="kategori"><span class="no">3</span><div class="nama">Teknologi</div></div>
-    <div class="kategori"><span class="no">4</span><div class="nama">Pertanian</div></div>
-    <div class="kategori"><span class="no">5</span><div class="nama">Kesehatan</div></div>
-    <div class="kategori"><span class="no">6</span><div class="nama">Perikanan dan Kelautan</div></div>
-    <div class="kategori"><span class="no">7</span><div class="nama">Peternakan</div></div>
-    <div class="kategori"><span class="no">8</span><div class="nama">Ekonomi dan Kewirausahaan</div></div>
-    <div class="kategori"><span class="no">9</span><div class="nama">Digitalisasi dan Teknologi Terapan</div></div>
-    <div class="kategori"><span class="no">10</span><div class="nama">Inovasi untuk Masyarakat dan Keberlanjutan</div></div>
+<section id="timeline">
+  <h2 class="judul reveal">Timeline Kegiatan</h2>
+  <div class="panel reveal">
+    <div class="timeline" id="timelineList">
+      <div class="t-item"><span class="dot"></span><div class="tgl">10 – 25 Oktober 2026</div><div class="ket">Pendaftaran dan pengiriman karya</div></div>
+      <div class="t-item"><span class="dot"></span><div class="tgl">26 – 28 Oktober 2026</div><div class="ket">Seleksi administrasi</div></div>
+      <div class="t-item"><span class="dot"></span><div class="tgl">29 Okt – 5 Nov 2026</div><div class="ket">Penilaian poster</div></div>
+      <div class="t-item"><span class="dot"></span><div class="tgl">6 November 2026</div><div class="ket">Pengumuman finalis</div></div>
+      <div class="t-item"><span class="dot"></span><div class="tgl">10 November 2026</div><div class="ket">Presentasi final (online)</div></div>
+    </div>
   </div>
 </section>
 
-<section id="timeline" style="padding-top:0">
-  <div class="info-grid">
-    <div class="panel">
-      <h3>TIMELINE KEGIATAN</h3>
-      <div class="timeline-item"><div class="dot"></div><div><div class="tgl">10 – 25 Oktober 2026</div><div class="ket">Pendaftaran dan pengiriman karya</div></div></div>
-      <div class="timeline-item"><div class="dot"></div><div><div class="tgl">26 – 28 Oktober 2026</div><div class="ket">Seleksi administrasi</div></div></div>
-      <div class="timeline-item"><div class="dot"></div><div><div class="tgl">29 Okt – 5 Nov 2026</div><div class="ket">Penilaian poster</div></div></div>
-      <div class="timeline-item"><div class="dot"></div><div><div class="tgl">6 November 2026</div><div class="ket">Pengumuman finalis</div></div></div>
-      <div class="timeline-item"><div class="dot"></div><div><div class="tgl">10 November 2026</div><div class="ket">Presentasi final (online)</div></div></div>
-    </div>
+<section id="kategori">
+  <h2 class="judul reveal">10 Kategori Lomba Poster</h2>
+  <div class="kategori-grid">
+    <button class="kategori reveal" data-no="1" data-nama="Pangan"><span class="no">1</span><div class="nama">Pangan</div><span class="hint-klik">Lihat detail</span></button>
+    <button class="kategori reveal" data-no="2" data-nama="Lingkungan" style="--d:.05s"><span class="no">2</span><div class="nama">Lingkungan</div><span class="hint-klik">Lihat detail</span></button>
+    <button class="kategori reveal" data-no="3" data-nama="Teknologi" style="--d:.1s"><span class="no">3</span><div class="nama">Teknologi</div><span class="hint-klik">Lihat detail</span></button>
+    <button class="kategori reveal" data-no="4" data-nama="Pertanian" style="--d:.15s"><span class="no">4</span><div class="nama">Pertanian</div><span class="hint-klik">Lihat detail</span></button>
+    <button class="kategori reveal" data-no="5" data-nama="Kesehatan" style="--d:.2s"><span class="no">5</span><div class="nama">Kesehatan</div><span class="hint-klik">Lihat detail</span></button>
+    <button class="kategori reveal" data-no="6" data-nama="Perikanan dan Kelautan"><span class="no">6</span><div class="nama">Perikanan dan Kelautan</div><span class="hint-klik">Lihat detail</span></button>
+    <button class="kategori reveal" data-no="7" data-nama="Peternakan" style="--d:.05s"><span class="no">7</span><div class="nama">Peternakan</div><span class="hint-klik">Lihat detail</span></button>
+    <button class="kategori reveal" data-no="8" data-nama="Ekonomi dan Kewirausahaan" style="--d:.1s"><span class="no">8</span><div class="nama">Ekonomi dan Kewirausahaan</div><span class="hint-klik">Lihat detail</span></button>
+    <button class="kategori reveal" data-no="9" data-nama="Digitalisasi dan Teknologi Terapan" style="--d:.15s"><span class="no">9</span><div class="nama">Digitalisasi dan Teknologi Terapan</div><span class="hint-klik">Lihat detail</span></button>
+    <button class="kategori reveal" data-no="10" data-nama="Inovasi untuk Masyarakat dan Keberlanjutan" style="--d:.2s"><span class="no">10</span><div class="nama">Inovasi untuk Masyarakat dan Keberlanjutan</div><span class="hint-klik">Lihat detail</span></button>
+  </div>
+</section>
 
-    <div class="panel" id="ketentuan">
+<section id="ketentuan" style="padding-top:0">
+  <div class="grid-2">
+    <div class="panel reveal">
       <h3>KETENTUAN UMUM</h3>
       <ul class="list-check">
         <li>Peserta adalah mahasiswa aktif D3/D4/S1 seluruh perguruan tinggi di Indonesia.</li>
@@ -296,8 +382,7 @@
         <li>Bahasa yang digunakan: Bahasa Indonesia atau Bahasa Inggris.</li>
       </ul>
     </div>
-
-    <div class="panel">
+    <div class="panel reveal" style="--d:.1s">
       <h3>KRITERIA PENILAIAN</h3>
       <ul class="list-check">
         <li>Kesesuaian dengan tema</li>
@@ -313,11 +398,11 @@
 </section>
 
 <section id="daftar" style="padding-top:0">
-  <h2 class="judul-section">Formulir Pendaftaran</h2>
-  <form id="formDaftar">
+  <h2 class="judul reveal">Formulir Pendaftaran</h2>
+  <form id="formDaftar" class="form-card reveal">
     <div class="form-grid">
       <div class="full">
-        <label>Kategori Lomba <span>*</span></label>
+        <label>Kategori Lomba <span class="wajib">*</span></label>
         <select name="kategori" required>
           <option value="">-- Pilih Kategori --</option>
           <option>1. Pangan</option>
@@ -334,32 +419,32 @@
       </div>
 
       <div class="full">
-        <label>Judul Poster <span>*</span></label>
+        <label>Judul Poster <span class="wajib">*</span></label>
         <input name="judul" required>
       </div>
 
       <div>
-        <label>Asal Perguruan Tinggi <span>*</span></label>
+        <label>Asal Perguruan Tinggi <span class="wajib">*</span></label>
         <input name="kampus" required>
       </div>
 
       <div>
-        <label>Nama Lengkap Ketua <span>*</span></label>
+        <label>Nama Lengkap Ketua <span class="wajib">*</span></label>
         <input name="ketua" required>
       </div>
 
       <div>
-        <label>NIM Ketua <span>*</span></label>
+        <label>NIM Ketua <span class="wajib">*</span></label>
         <input name="nim" required>
       </div>
 
       <div>
-        <label>Email Aktif Ketua <span>*</span></label>
+        <label>Email Aktif Ketua <span class="wajib">*</span></label>
         <input name="email" type="email" required>
       </div>
 
       <div>
-        <label>No. WhatsApp Ketua <span>*</span></label>
+        <label>No. WhatsApp Ketua <span class="wajib">*</span></label>
         <input name="wa" type="tel" required>
       </div>
 
@@ -374,28 +459,36 @@
       </div>
 
       <div class="full">
-        <label>Link Berkas Poster (Google Drive, PDF) <span>*</span></label>
-        <input name="linkBerkas" type="url" required>
-        <div class="hint">Pastikan izin link Drive disetel ke "Siapa saja yang memiliki tautan dapat melihat".</div>
+        <label>Upload Poster (PDF, maks 10 MB) <span class="wajib">*</span></label>
+        <div class="file-box">
+          <input type="file" name="berkas" accept="application/pdf" required>
+          <div class="ikon">📄</div>
+          <div class="teks">Ketuk untuk memilih file PDF</div>
+          <div class="nama-file" id="namaFile">Belum ada file dipilih</div>
+        </div>
+        <div class="hint">Format PDF, ukuran A3 (potrait), resolusi minimal 300 dpi.</div>
       </div>
     </div>
 
-    <button class="submit" type="submit" id="tombolKirim">Kirim Pendaftaran</button>
+    <button class="submit" type="submit" id="tombolKirim">
+      <span class="spinner"></span>
+      <span class="label">Kirim Pendaftaran</span>
+    </button>
   </form>
 </section>
 
 <section id="kontak" style="padding-top:0">
-  <div class="narahubung">
+  <div class="narahubung reveal">
     <h3>NARAHUBUNG</h3>
-    <div class="orang">
-      <strong>Rukmelia</strong>
-      (085253824822)
-      <br><a class="wa" href="https://wa.me/6285253824822" target="_blank">Chat WhatsApp</a>
-    </div>
-    <div class="orang">
-      <strong>Fitriani</strong>
-      (087810270070)
-      <br><a class="wa" href="https://wa.me/6287810270070" target="_blank">Chat WhatsApp</a>
+    <div class="kontak-grid">
+      <div class="orang">
+        <div><strong>Rukmelia</strong><small>085253824822</small></div>
+        <a class="wa" href="https://wa.me/6285253824822" target="_blank" rel="noopener">Chat WhatsApp</a>
+      </div>
+      <div class="orang">
+        <div><strong>Fitriani</strong><small>087810270070</small></div>
+        <a class="wa" href="https://wa.me/6287810270070" target="_blank" rel="noopener">Chat WhatsApp</a>
+      </div>
     </div>
   </div>
 </section>
@@ -404,30 +497,47 @@
   © 2026 Fakultas Sains dan Teknologi, Universitas Muhammadiyah Sidenreng Rappang
 </footer>
 
-<div class="modal" id="modalSukses">
+<!-- Modal detail kategori -->
+<div class="modal" id="modalKategori">
   <div class="modal-box">
-    <h3>Pendaftaran Berhasil Dikirim!</h3>
-    <p>Data dan poster kamu sudah tersimpan. Panitia akan memproses pendaftaranmu.</p>
-    <button onclick="document.getElementById('modalSukses').classList.remove('show')">Tutup</button>
+    <div class="ikon-besar" id="kNo">1</div>
+    <h3 id="kNama">Kategori</h3>
+    <p>Ingin mendaftar di kategori ini? Formulir akan otomatis terisi dengan kategori yang kamu pilih.</p>
+    <div class="aksi">
+      <button class="btn-abu" data-close="modalKategori">Tutup</button>
+      <button class="btn-biru" id="kPilih">Daftar di Kategori Ini</button>
+    </div>
   </div>
 </div>
 
-<script>
-  // ===== GANTI DENGAN URL APPS SCRIPT KAMU =====
-  const APPS_SCRIPT_URL = "GANTI_URL_APPS_SCRIPT";
+<!-- Modal sukses -->
+<div class="modal" id="modalSukses">
+  <div class="modal-box">
+    <div class="ikon-besar">✓</div>
+    <h3>Pendaftaran Berhasil Dikirim!</h3>
+    <p>Data dan poster kamu sudah tersimpan. Panitia akan memproses pendaftaranmu.</p>
+    <div class="aksi">
+      <button class="btn-biru" data-close="modalSukses">Tutup</button>
+    </div>
+  </div>
+</div>
 
-  // ===== TARGET COUNTDOWN: batas akhir pendaftaran 25 Oktober 2026 pukul 23:59 =====
+<div class="toast" id="toast"></div>
+
+<script>
+  // ===== GANTI DENGAN URL APPS SCRIPT (versi final) =====
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwb73m7LyOcAy5yiv8SotF7Chm0qZkSl30f35cUh24rQjWk4_yxd45TocTaUJiXnDESOg/exec";
+
+  // ===== BATAS AKHIR PENDAFTARAN =====
   const TARGET = new Date(2026, 9, 25, 23, 59, 0);
 
+  // ----- Countdown -----
   function updateCountdown() {
     const selisih = TARGET - new Date();
-    if (selisih <= 0) {
-      ["hari","jam","menit","detik"].forEach(id => document.getElementById(id).textContent = "00");
-      return;
-    }
-    const hari = Math.floor(selisih / (1000*60*60*24));
-    const jam = Math.floor((selisih / (1000*60*60)) % 24);
-    const menit = Math.floor((selisih / (1000*60)) % 60);
+    if (selisih <= 0) return;
+    const hari = Math.floor(selisih / 86400000);
+    const jam = Math.floor((selisih / 3600000) % 24);
+    const menit = Math.floor((selisih / 60000) % 60);
     const detik = Math.floor((selisih / 1000) % 60);
     document.getElementById("hari").textContent = String(hari).padStart(2, "0");
     document.getElementById("jam").textContent = String(jam).padStart(2, "0");
@@ -437,27 +547,137 @@
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
-  document.getElementById("formDaftar").addEventListener("submit", async (e) => {
+  // ----- Animasi saat scroll -----
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en) => {
+      if (en.isIntersecting) {
+        en.target.classList.add("in");
+        io.unobserve(en.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll(".reveal, .timeline").forEach((el) => io.observe(el));
+
+  // ----- Menyorot menu sesuai bagian yang sedang dilihat -----
+  const navLinks = document.querySelectorAll("nav a");
+  const sections = [...navLinks].map((a) => document.querySelector(a.getAttribute("href")));
+  window.addEventListener("scroll", () => {
+    let aktif = -1;
+    sections.forEach((s, i) => {
+      if (s && s.getBoundingClientRect().top < 160) aktif = i;
+    });
+    navLinks.forEach((a, i) => a.classList.toggle("active", i === aktif));
+  }, { passive: true });
+
+  // ----- Modal -----
+  function bukaModal(id) {
+    document.getElementById(id).classList.add("show");
+    document.body.style.overflow = "hidden";
+  }
+  function tutupModal(id) {
+    document.getElementById(id).classList.remove("show");
+    document.body.style.overflow = "";
+  }
+  document.querySelectorAll("[data-close]").forEach((btn) =>
+    btn.addEventListener("click", () => tutupModal(btn.dataset.close))
+  );
+  document.querySelectorAll(".modal").forEach((m) =>
+    m.addEventListener("click", (e) => { if (e.target === m) tutupModal(m.id); })
+  );
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") document.querySelectorAll(".modal.show").forEach((m) => tutupModal(m.id));
+  });
+
+  // ----- Popup detail kategori -----
+  const form = document.getElementById("formDaftar");
+  const selectKategori = form.querySelector('select[name="kategori"]');
+  let kategoriTerpilih = "";
+
+  document.querySelectorAll(".kategori").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document.getElementById("kNo").textContent = btn.dataset.no;
+      document.getElementById("kNama").textContent = btn.dataset.nama;
+      kategoriTerpilih = `${btn.dataset.no}. ${btn.dataset.nama}`;
+      bukaModal("modalKategori");
+    });
+  });
+
+  document.getElementById("kPilih").addEventListener("click", () => {
+    selectKategori.value = kategoriTerpilih;
+    tutupModal("modalKategori");
+    setTimeout(() => {
+      document.getElementById("daftar").scrollIntoView({ behavior: "smooth" });
+      selectKategori.focus({ preventScroll: true });
+    }, 250);
+  });
+
+  // ----- Nama file yang dipilih -----
+  const inputFile = form.querySelector('input[name="berkas"]');
+  const namaFileEl = document.getElementById("namaFile");
+  inputFile.addEventListener("change", () => {
+    const f = inputFile.files[0];
+    namaFileEl.textContent = f
+      ? `${f.name} (${(f.size / 1048576).toFixed(2)} MB)`
+      : "Belum ada file dipilih";
+  });
+
+  // ----- Toast kecil -----
+  function tampilkanToast(pesan) {
+    const t = document.getElementById("toast");
+    t.textContent = pesan;
+    t.classList.add("show");
+    clearTimeout(t._timer);
+    t._timer = setTimeout(() => t.classList.remove("show"), 3200);
+  }
+
+  // ----- Membaca file sebagai base64 -----
+  const bacaFile = (file) => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(",")[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+
+  // ----- Kirim formulir -----
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const tombol = document.getElementById("tombolKirim");
-    tombol.disabled = true;
-    tombol.textContent = "Mengirim...";
+    const label = tombol.querySelector(".label");
+    const file = inputFile.files[0];
 
-    const data = Object.fromEntries(new FormData(e.target).entries());
+    if (!file) return tampilkanToast("Silakan pilih file poster terlebih dahulu.");
+    if (file.type !== "application/pdf") return tampilkanToast("File harus berformat PDF.");
+    if (file.size > 10 * 1024 * 1024) return tampilkanToast("Ukuran file maksimal 10 MB.");
+
+    tombol.disabled = true;
+    tombol.classList.add("loading");
+    label.textContent = "Mengirim...";
 
     try {
+      const fileBase64 = await bacaFile(file);
+      const data = Object.fromEntries(new FormData(form).entries());
+      delete data.berkas;
+
       await fetch(APPS_SCRIPT_URL, {
         method: "POST",
         mode: "no-cors",
-        body: JSON.stringify(data)
+        body: JSON.stringify({
+          ...data,
+          fileBase64,
+          fileName: file.name,
+          fileType: file.type
+        })
       });
-      document.getElementById("modalSukses").classList.add("show");
-      e.target.reset();
+
+      form.reset();
+      namaFileEl.textContent = "Belum ada file dipilih";
+      bukaModal("modalSukses");
     } catch (err) {
-      alert("Gagal mengirim. Periksa koneksi internet kamu lalu coba lagi.");
+      tampilkanToast("Gagal mengirim. Periksa koneksi lalu coba lagi.");
     } finally {
       tombol.disabled = false;
-      tombol.textContent = "Kirim Pendaftaran";
+      tombol.classList.remove("loading");
+      label.textContent = "Kirim Pendaftaran";
     }
   });
 </script>
