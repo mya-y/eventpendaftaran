@@ -334,6 +334,46 @@
   .hero { padding: 28px 16px 30px; }
   .logos img { height: 52px; }
 }
+
+/* ===== TIMELINE INTERAKTIF ===== */
+button.t-item {
+  display: block; width: 100%; background: none; border: none;
+  font: inherit; color: inherit; text-align: left; cursor: pointer;
+}
+.t-item .tgl, .t-item .ket { display: block; }
+.t-item:focus-visible { outline: 3px solid var(--emas); outline-offset: 4px; border-radius: 8px; }
+
+.callout {
+  position: absolute; left: 34px; top: calc(100% - 6px); z-index: 20;
+  width: min(280px, 90%); background: var(--navy); color: #fff;
+  border-radius: 14px; padding: 12px 14px; font-size: 13px; line-height: 1.5;
+  box-shadow: 0 12px 28px rgba(10,31,68,.3);
+  opacity: 0; transform: translateY(-6px) scale(.96); transform-origin: top left;
+  pointer-events: none; transition: opacity .25s ease, transform .25s ease;
+}
+.callout::before {
+  content: ""; position: absolute; top: -6px; left: 18px;
+  width: 12px; height: 12px; background: var(--navy);
+  transform: rotate(45deg); border-radius: 2px;
+}
+.callout strong { display: block; color: var(--emas); font-size: 14px; margin-bottom: 4px; }
+.t-item.aktif .callout { opacity: 1; transform: none; pointer-events: auto; }
+
+/* ===== OVERLAY PENDAFTARAN DITUTUP ===== */
+.form-wrap { position: relative; }
+.tutup-overlay {
+  position: absolute; inset: 0; z-index: 10; border-radius: 16px;
+  background: rgba(243,247,253,.55); backdrop-filter: blur(3px);
+  display: none; align-items: center; justify-content: center; padding: 20px;
+}
+.tutup-overlay.show { display: flex; }
+.tutup-box {
+  background: #fff; border-left: 6px solid var(--emas); border-radius: 14px;
+  padding: 18px 22px; max-width: 380px; text-align: center;
+  box-shadow: 0 16px 40px rgba(10,31,68,.25);
+}
+.tutup-box h3 { color: var(--navy); font-size: 19px; margin-bottom: 6px; }
+.tutup-box p { color: var(--abu); font-size: 14px; }
 </style>
 </head>
 <body>
@@ -377,11 +417,37 @@
   <h2 class="judul reveal">Timeline Kegiatan</h2>
   <div class="panel reveal">
     <div class="timeline" id="timelineList">
-      <div class="t-item"><span class="dot"></span><div class="tgl">10 – 25 Oktober 2026</div><div class="ket">Pendaftaran dan pengiriman karya</div></div>
-      <div class="t-item"><span class="dot"></span><div class="tgl">26 – 28 Oktober 2026</div><div class="ket">Seleksi administrasi</div></div>
-      <div class="t-item"><span class="dot"></span><div class="tgl">29 Okt – 5 Nov 2026</div><div class="ket">Penilaian poster</div></div>
-      <div class="t-item"><span class="dot"></span><div class="tgl">6 November 2026</div><div class="ket">Pengumuman finalis</div></div>
-      <div class="t-item"><span class="dot"></span><div class="tgl">10 November 2026</div><div class="ket">Presentasi final (online)</div></div>
+      <button class="t-item" type="button">
+        <span class="dot"></span>
+        <span class="tgl">10 – 25 Oktober 2026</span>
+        <span class="ket">Pendaftaran dan pengiriman karya</span>
+        <span class="callout"><strong>Pendaftaran</strong>Formulir dan upload poster dibuka sampai 25 Oktober 2026 pukul 23.59 WIB.</span>
+      </button>
+      <button class="t-item" type="button">
+        <span class="dot"></span>
+        <!-- ganti tanggal seleksi administrasi di baris berikut -->
+        <span class="tgl">26 – 28 Oktober 2026</span>
+        <span class="ket">Seleksi administrasi</span>
+        <span class="callout"><strong>Seleksi Administrasi</strong>Panitia memeriksa kelengkapan dan kesesuaian berkas peserta.</span>
+      </button>
+      <button class="t-item" type="button">
+        <span class="dot"></span>
+        <span class="tgl">29 Okt – 5 Nov 2026</span>
+        <span class="ket">Penilaian poster</span>
+        <span class="callout"><strong>Penilaian Poster</strong>Juri menilai poster berdasarkan kriteria yang sudah ditetapkan.</span>
+      </button>
+      <button class="t-item" type="button">
+        <span class="dot"></span>
+        <span class="tgl">6 November 2026</span>
+        <span class="ket">Pengumuman finalis</span>
+        <span class="callout"><strong>Pengumuman Finalis</strong>Daftar peserta yang lolos ke tahap presentasi final.</span>
+      </button>
+      <button class="t-item" type="button">
+        <span class="dot"></span>
+        <span class="tgl">10 November 2026</span>
+        <span class="ket">Presentasi final (online)</span>
+        <span class="callout"><strong>Presentasi Final</strong>Presentasi dilakukan secara online untuk peserta finalis.</span>
+      </button>
     </div>
   </div>
 </section>
@@ -563,6 +629,7 @@
 
   // ===== BATAS AKHIR PENDAFTARAN =====
   const TARGET = new Date(2026, 9, 25, 23, 59, 0);
+  const TUTUP_MANUAL = true;
 
   // ----- Countdown -----
   function updateCountdown() {
