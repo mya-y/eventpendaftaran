@@ -498,6 +498,14 @@ button.t-item {
 
 <section id="daftar" style="padding-top:0">
   <h2 class="judul reveal">Formulir Pendaftaran</h2>
+ <div class="form-wrap">
+  <div class="tutup-overlay" id="overlayTutup">
+    <div class="tutup-box">
+      <h3>Pendaftaran Telah Ditutup</h3>
+      <p>Terima kasih atas antusiasmenya. Pendaftaran lomba sudah berakhir.</p>
+    </div>
+  </div>
+
   <form id="formDaftar" class="form-card reveal">
     <div class="form-grid">
       <div class="full">
@@ -780,6 +788,26 @@ button.t-item {
       label.textContent = "Kirim Pendaftaran";
     }
   });
+
+  // ===== TIMELINE: ketuk untuk menampilkan keterangan =====
+document.querySelectorAll(".t-item").forEach((item) => {
+  item.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const sudahAktif = item.classList.contains("aktif");
+    document.querySelectorAll(".t-item.aktif").forEach((el) => el.classList.remove("aktif"));
+    if (!sudahAktif) item.classList.add("aktif");
+  });
+});
+document.addEventListener("click", () => {
+  document.querySelectorAll(".t-item.aktif").forEach((el) => el.classList.remove("aktif"));
+});
+
+// ===== STATUS PENDAFTARAN =====
+const pendaftaranDitutup = TUTUP_MANUAL || new Date() > TARGET;
+if (pendaftaranDitutup) {
+  document.getElementById("overlayTutup").classList.add("show");
+  form.inert = true; // formulir tidak bisa disentuh dan tidak bisa dikirim
+}
 </script>
 </body>
 </html>
